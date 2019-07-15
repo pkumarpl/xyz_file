@@ -2,7 +2,7 @@
 # -*- coding=utf-8 -*-
 
 """
-cry2cif
+read_xyz_write_xyz
 NAME     
         xyz.py - extract geometry from a xyz file
 SYNTAX
@@ -55,11 +55,10 @@ def read_xyz(args):
     """ read a xyz file from file handle
     Parameters
     ----------
-    fin : file handle
+    file : file handle
         file to read from
     Returns
     -------
-    fin : open file
     xyz : namedtuple
         returns a named tuple with coords, title and list of atomtypes.
     """
@@ -79,12 +78,19 @@ def read_xyz(args):
     #print(coords)
     '''
     write xyz file
+    Parameters
+    ----------
+    name : file handle
+    Returns
+    -------
+    moved atoms by adding 50.0 50.0 50.0 
+    out.xyz as output file
     '''
     name = 'out.xyz'
     with open(name, 'w') as fout:
     	fout.write("%d\n%s\n" % (coords.size / 3, title))
     	for x, atomtype in zip(coords.reshape(-1, 3), cycle(atomtypes)):
-    		fout.write("%s %.18g %.18g %.18g\n" % (atomtype, x[0]+50, x[1]+50, x[2]+50))
+    		fout.write("%s %.18g %.18g %.18g\n" % (atomtype, x[0]+50.0, x[1]+50.0, x[2]+50.0))
         
     return namedtuple("XYZFile", ["coords", "title", "atomtypes"]) \
         (coords, title, atomtypes)
