@@ -64,6 +64,8 @@ def read_xyz(args):
     """
     #file = open(fin, 'r')
     #print(file)
+    path = "tranlated"
+    os.mkdir(path)
     natoms = int(file.readline())
     #print(natoms)
     title = file.readline()[:-1]
@@ -86,7 +88,7 @@ def read_xyz(args):
     moved atoms by adding 50.0 50.0 50.0 
     out.xyz as output file
     '''
-    name = 'out.xyz'
+    name = os.path.join(path, 'out.xyz') 
     with open(name, 'w') as fout:
     	fout.write("%d\n%s\n" % (coords.size / 3, title))
     	for x, atomtype in zip(coords.reshape(-1, 3), cycle(atomtypes)):
